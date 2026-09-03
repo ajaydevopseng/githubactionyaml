@@ -1,4 +1,3 @@
-```yaml
 name: terraform
 
 on:
@@ -35,4 +34,3 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan
-```
