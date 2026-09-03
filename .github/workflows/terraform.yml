@@ -1,4 +1,4 @@
-name: terraform
+name: Terraform
 
 on:
   push:
@@ -14,23 +14,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - name: Check Azure Variables
-          run: |
-            if [ -z "${{ vars.AZURE_CLIENT_ID }}" ]; then
-              echo "CLIENT_ID is MISSING"
-            else
-              echo "CLIENT_ID is PRESENT"
-            fi
-        
-            if [ -z "${{ vars.AZURE_TENANT_ID }}" ]; then
-              echo "TENANT_ID is MISSING"
-            else
-              echo "TENANT_ID is PRESENT"
-            fi
-        
-            if [ -z "${{ vars.AZURE_SUBSCRIPTION_ID }}" ]; then
-              echo "SUBSCRIPTION_ID is MISSING"
-            else
-              echo "SUBSCRIPTION_ID is PRESENT"
-            fi
+    - name: Checkout
+      uses: actions/checkout@v4
 
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ vars.AZURE_CLIENT_ID }}
+        tenant-id: ${{ vars.AZURE_TENANT_ID }}
+        subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    - name: Terraform Validate
+      run: terraform validate
+
+    - name: Terraform Plan
+      run: terraform plan -out=tfplan
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve tfplan
