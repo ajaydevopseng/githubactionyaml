@@ -1,0 +1,5 @@
+name,location,tags
+rg-prod-app,eastus,env=prod;owner=platform-team;costcenter=1001
+rg-dev-app,westus2,env=dev;owner=dev-team
+rg-shared-network,centralus,env=shared;owner=network-team;costcenter=2002
+rg-test-app,eastus2,env=test;owner=qa-team
