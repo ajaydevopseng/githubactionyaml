@@ -14,21 +14,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - name: Check Azure Secrets
+        - name: Check Azure Variables
           run: |
-            if [ -z "${{ secrets.AZURE_CLIENT_ID }}" ]; then
+            if [ -z "${{ vars.AZURE_CLIENT_ID }}" ]; then
               echo "CLIENT_ID is MISSING"
             else
               echo "CLIENT_ID is PRESENT"
             fi
         
-            if [ -z "${{ secrets.AZURE_TENANT_ID }}" ]; then
+            if [ -z "${{ vars.AZURE_TENANT_ID }}" ]; then
               echo "TENANT_ID is MISSING"
             else
               echo "TENANT_ID is PRESENT"
             fi
         
-            if [ -z "${{ secrets.AZURE_SUBSCRIPTION_ID }}" ]; then
+            if [ -z "${{ vars.AZURE_SUBSCRIPTION_ID }}" ]; then
               echo "SUBSCRIPTION_ID is MISSING"
             else
               echo "SUBSCRIPTION_ID is PRESENT"
